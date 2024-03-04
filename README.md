@@ -1,1 +1,29 @@
-# ait-challenge
+# AIT Solutions - Challenge
+
+## Requisitos
+### Frontend
+- Utilizar ReactJS para construir la interfaz de usuario.
+- La interfaz debe incluir formularios para la creación y edición de artículos
+- Proporcionar la posibilidad al usuario de importar artículos desde un archivo Excel, así como la opción de descargar la lista de artículos desde un archivo excel.
+### Backend
+- Crear una API REST  utilizando Django y Django Rest Framework.
+- Usar MySQL como sistema de gestión de base de datos.
+- Incluir test unitarios.
+- Dockerizar la aplicación Django y la base de datos MySQL.
+
+
+## Recomendaciones
+- ReactJS 17 o superior
+- La aplicación debe utilizar Python 3.8 o superior.
+
+# TODO Checklist
+- [X] Kickstart Django Project
+- [ ] Modelado de Articulo
+- [ ] API Calls (DRF)
+- [ ] Importar y exportar excel (import-export)
+- [ ] Test
+- [ ] Manejo de Sesion (JWT)
+- [ ] Front
+- [ ] Dockerfile basico
+- [ ] Migracion a MySQL
+- [ ] Pulir documentacion
