@@ -6,7 +6,7 @@
 - La interfaz debe incluir formularios para la creación y edición de artículos
 - Proporcionar la posibilidad al usuario de importar artículos desde un archivo Excel, así como la opción de descargar la lista de artículos desde un archivo excel.
 ### Backend
-- Crear una API REST  utilizando Django y Django Rest Framework.
+- Crear una API REST utilizando Django y Django Rest Framework.
 - Usar MySQL como sistema de gestión de base de datos.
 - Incluir test unitarios.
 - Dockerizar la aplicación Django y la base de datos MySQL.
@@ -18,12 +18,13 @@
 
 # TODO Checklist
 - [X] Kickstart Django Project
-- [ ] Modelado de Articulo
+- [X] Modelado de Articulo
 - [ ] API Calls (DRF)
 - [ ] Importar y exportar excel (import-export)
 - [ ] Test
 - [ ] Manejo de Sesion (JWT)
 - [ ] Front
 - [ ] Dockerfile basico
-- [ ] Migracion a MySQL
+- [ ] Populate
+- [ ] Migracion a MySQL (actualizar dockerfile)
 - [ ] Pulir documentacion
