@@ -19,7 +19,7 @@
 # TODO Checklist
 - [X] Kickstart Django Project
 - [X] Modelado de Articulo
-- [ ] API Calls (DRF)
+- [X] API Calls (DRF)
 - [ ] Importar y exportar excel (import-export)
 - [ ] Test
 - [ ] Manejo de Sesion (JWT)
