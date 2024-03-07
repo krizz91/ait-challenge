@@ -3,9 +3,11 @@ from rest_framework import status, serializers as drf_serializers, generics
 from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from challenge import serializers
 from challenge.models import Article
+from challenge.resource import ArticleResource
 
 class LoginView(GenericAPIView):
 
@@ -85,3 +87,27 @@ class UpdateArticleView(generics.UpdateAPIView):
     queryset = Article.objects.all()
     serializer_class = serializers.ArticlesSerializer
     lookup_field = 'id'
+
+# class ImportarExcel(APIView):
+#     parser_classes = (MultiPartParser, FormParser)
+
+#     def post(self, request, *args, **kwargs):
+#         dataset = base_formats.XLS().create_dataset()
+#         imported_data = dataset.load(request.FILES['archivo_excel'].read())
+#         for data in imported_data:
+#             row = TuModeloResource().import_row(data, raise_errors=True)
+#             if row.errors:
+#                 # Maneja errores de validación
+#                 pass
+#         return Response({'mensaje': 'Datos importados correctamente'})
+
+class ArticleExportView(APIView):
+    permission_classes = (IsAuthenticated, )
+
+    def get(self, request, *args, **kwargs):
+        dataset = ArticleResource().export()
+        print(dataset.csv)
+        # return Response()
+        response = Response(dataset.csv, content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="export.xls"'
+        return response
