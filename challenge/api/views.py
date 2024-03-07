@@ -1,4 +1,5 @@
 from django.contrib.auth import login, logout
+from django.http import HttpResponse
 from rest_framework import status, serializers as drf_serializers, generics
 from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -105,9 +106,8 @@ class ArticleExportView(APIView):
     permission_classes = (IsAuthenticated, )
 
     def get(self, request, *args, **kwargs):
-        dataset = ArticleResource().export()
-        print(dataset.csv)
-        # return Response()
-        response = Response(dataset.csv, content_type='text/csv')
+        article_resource = ArticleResource()
+        dataset = article_resource.export()
+        response = HttpResponse(dataset.xls, content_type='application/vnd.ms-excel')
         response['Content-Disposition'] = 'attachment; filename="export.xls"'
         return response
