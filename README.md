@@ -21,7 +21,7 @@
 - [X] Modelado de Articulo
 - [X] API Calls (DRF)
 - [X] Importar y exportar excel (import-export)
-- [ ] Manejo de errores
+- [X] Manejo de errores
 - [ ] Tests
 - [ ] Manejo de Sesion (JWT)
 - [ ] Front

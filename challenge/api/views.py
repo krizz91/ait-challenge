@@ -130,8 +130,11 @@ class ArticleExportView(GenericAPIView):
     permission_classes = (IsAuthenticated, )
 
     def get(self, request, *args, **kwargs):
-        article_resource = ArticleResource()
-        dataset = article_resource.export()
-        response = HttpResponse(dataset.xls, content_type='application/vnd.ms-excel')
-        response['Content-Disposition'] = 'attachment; filename="export.xls"'
-        return response
+        try:
+            article_resource = ArticleResource()
+            dataset = article_resource.export()
+            response = HttpResponse(dataset.xls, content_type='application/vnd.ms-excel')
+            response['Content-Disposition'] = 'attachment; filename="export.xls"'
+            return response
+        except Exception as e:
+            return Response({'error': 'Error en la exportacion de datos'})
