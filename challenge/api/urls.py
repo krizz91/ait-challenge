@@ -7,7 +7,8 @@ from challenge.api.views import (
     CreateArticleView,
     GetArticleView,
     UpdateArticleView,
-    ArticleExportView
+    ArticleExportView,
+    ArticleImportView
     )
 
 urlpatterns = [
@@ -17,6 +18,6 @@ urlpatterns = [
     path('get/<int:id>', view=GetArticleView.as_view(), name='get'),
     path('create/', view=CreateArticleView.as_view(), name='create'),
     path('update/<int:id>', view=UpdateArticleView.as_view(), name='update'),
-    # path('import/'),
+    path('import/', view=ArticleImportView.as_view(), name='import'),
     path('export/', view=ArticleExportView.as_view(), name='export')
 ]

@@ -44,3 +44,6 @@ class ArticlesSerializer(serializers.ModelSerializer):
         model = Article
         fields = ('id', 'code', 'description', 'price')
         read_only_fields = ('id', 'code', 'description', 'price')
+
+class ImportSerializer(serializers.Serializer):
+    file = serializers.FileField()

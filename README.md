@@ -20,8 +20,9 @@
 - [X] Kickstart Django Project
 - [X] Modelado de Articulo
 - [X] API Calls (DRF)
-- [ ] Importar y exportar excel (import-export)
-- [ ] Test
+- [X] Importar y exportar excel (import-export)
+- [ ] Manejo de errores
+- [ ] Tests
 - [ ] Manejo de Sesion (JWT)
 - [ ] Front
 - [ ] Dockerfile basico

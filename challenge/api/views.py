@@ -1,10 +1,13 @@
 from django.contrib.auth import login, logout
 from django.http import HttpResponse
+from import_export.formats.base_formats import XLS, XLSX
 from rest_framework import status, serializers as drf_serializers, generics
 from rest_framework.generics import GenericAPIView
+from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
-from rest_framework.views import APIView
+
+import magic
 
 from challenge import serializers
 from challenge.models import Article
@@ -89,20 +92,41 @@ class UpdateArticleView(generics.UpdateAPIView):
     serializer_class = serializers.ArticlesSerializer
     lookup_field = 'id'
 
-# class ImportarExcel(APIView):
-#     parser_classes = (MultiPartParser, FormParser)
+class ArticleImportView(GenericAPIView):
+    permission_classes = (IsAuthenticated, )
+    parser_classes = (MultiPartParser, FormParser)
+    serializer_class = serializers.ImportSerializer
 
-#     def post(self, request, *args, **kwargs):
-#         dataset = base_formats.XLS().create_dataset()
-#         imported_data = dataset.load(request.FILES['archivo_excel'].read())
-#         for data in imported_data:
-#             row = TuModeloResource().import_row(data, raise_errors=True)
-#             if row.errors:
-#                 # Maneja errores de validación
-#                 pass
-#         return Response({'mensaje': 'Datos importados correctamente'})
+    def post(self, request, *args, **kwargs):
+        archivo = request.FILES['file'].read()
+        mime = magic.Magic(mime=True)
+        formato = mime.from_buffer(archivo)
 
-class ArticleExportView(APIView):
+        if formato == 'application/vnd.ms-excel':
+            imported_data = XLS().create_dataset(archivo)
+        elif formato == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+            imported_data = XLSX().create_dataset(archivo)
+        else:
+            return Response({'error': 'Formato de archivo no compatible'}, status=400)
+        
+        for data in imported_data:
+            try:
+                ## FIXME: Optimize
+                received_code = data[0]
+                if(Article.objects.filter(code=received_code).exists()):
+                    article = Article.objects.get(code=received_code)
+                else:
+                    article = Article()
+                article.code = received_code
+                article.description = data[1]
+                article.price = data[2]
+                article.save()
+            except Exception as e:
+                print(e)
+                return Response({'error': 'Error en la importacion de datos'})
+        return Response({'mensaje': 'Datos importados correctamente'})
+
+class ArticleExportView(GenericAPIView):
     permission_classes = (IsAuthenticated, )
 
     def get(self, request, *args, **kwargs):
