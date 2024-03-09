@@ -36,9 +36,9 @@ class LoginSerializer(serializers.Serializer):
         return attrs
 
 class ArticlesSerializer(serializers.ModelSerializer):
-    code = serializers.CharField()
-    description = serializers.CharField()
-    price = serializers.DecimalField(max_digits=10, decimal_places=2)
+    code = serializers.CharField(required=False)
+    description = serializers.CharField(required=False)
+    price = serializers.DecimalField(required=False, max_digits=10, decimal_places=2)
 
     class Meta:
         model = Article

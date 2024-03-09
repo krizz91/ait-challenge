@@ -1,3 +1,4 @@
+import magic
 from django.contrib.auth import login, logout
 from django.http import HttpResponse
 from import_export.formats.base_formats import XLS, XLSX
@@ -6,8 +7,6 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
-
-import magic
 
 from challenge import serializers
 from challenge.models import Article

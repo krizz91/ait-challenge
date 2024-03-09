@@ -22,7 +22,7 @@
 - [X] API Calls (DRF)
 - [X] Importar y exportar excel (import-export)
 - [X] Manejo de errores
-- [ ] Tests
+- [X] Tests
 - [ ] Manejo de Sesion (JWT)
 - [ ] Front
 - [ ] Dockerfile basico
