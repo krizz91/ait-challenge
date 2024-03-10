@@ -3,6 +3,7 @@ venv/
 env/
 ENV/
 .venv/
+.nodeenv/
 
 # Compiled Python files
 *.pyc
