@@ -3,6 +3,7 @@ from django.contrib.auth import login, logout
 from django.http import HttpResponse
 from import_export.formats.base_formats import XLS, XLSX
 from rest_framework import status, serializers as drf_serializers, generics
+from rest_framework.authtoken.models import Token
 from rest_framework.generics import GenericAPIView
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -30,10 +31,12 @@ class LoginView(GenericAPIView):
                                     status=status.HTTP_400_BAD_REQUEST)
             else:
                 user = serializer.validated_data['user']
+                token, created = Token.objects.get_or_create(user=user)
                 login(self.request, user)
 
                 response = Response({
-                    "status": "success"
+                    "status": "success",
+                    "token": token.key
                     }, status=status.HTTP_200_OK)
         except Exception as e:
             response = Response({"status": "failed",
@@ -41,13 +44,15 @@ class LoginView(GenericAPIView):
                                 status=status.HTTP_200_OK)
         return response
 
-
 class LogoutView(GenericAPIView):
 
     permission_classes = (IsAuthenticated, )
     serializer_class = drf_serializers.Serializer
 
     def post(self, request, *args, **kwargs):
+        user = request.user
+        token, created = Token.objects.get_or_create(user=user)
+        token.delete()
         logout(self.request)
         return Response({"status": "success",
                          "message": "Successfully logged out."},

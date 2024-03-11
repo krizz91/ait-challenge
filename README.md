@@ -23,7 +23,7 @@
 - [X] Importar y exportar excel (import-export)
 - [X] Manejo de errores
 - [X] Tests
-- [ ] Manejo de Sesion (JWT)
+- [X] Manejo de Sesion ~(JWT)~ (Token)
 - [ ] Front
 - [ ] Dockerfile basico
 - [ ] Populate
