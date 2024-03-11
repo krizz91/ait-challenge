@@ -26,6 +26,6 @@
 - [X] Manejo de Sesion ~(JWT)~ (Token)
 - [X] Front
 - [X] Dockerfile basico
-- [ ] Populate
+- [X] Populate
 - [ ] Migracion a MySQL (actualizar dockerfile)
 - [ ] Pulir documentacion

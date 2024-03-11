@@ -18,6 +18,10 @@ COPY . .
 
 RUN python3 manage.py migrate
 
+RUN python3 manage.py test
+
+RUN python3 populate.py
+
 # Exponer el puerto 8000
 EXPOSE 8000
 
