@@ -48,7 +48,12 @@ export const ListPage = () => {
         {list.map(art => (
           <li key={art.id}>
             {art.description}
-            <button onClick={() => navigate(`/edit/${art.id}`, { replace: true })}>Editar</button>
+            <button onClick={() => navigate(`/edit/${art.id}`, {
+              replace: true,
+              state: {
+                object: art
+              }
+            })}>Editar</button>
           </li>
         ))}
       </ul>

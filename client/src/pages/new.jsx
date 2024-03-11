@@ -1,16 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 export const NewPage = () => {
   const token = useSelector(state => state.session.token);
 
+  const [code, setCode] = useState('');
+  const [description, setDescription] = useState('');
+  const [price, setPrice] = useState('');
+
   function handleSubmit(event) {
     event.preventDefault();
-
-    let formData = new FormData(event.currentTarget);
-    let code = formData.get("code");
-    let description = formData.get("description");
-    let price = formData.get("price");
 
     fetch('http://127.0.0.1:8000/challenge/create/', {
       method: 'POST',
@@ -44,15 +43,15 @@ export const NewPage = () => {
       <h2>Nuevo Elemento</h2>
       <form onSubmit={handleSubmit}>
         <label>
-          Code: <input name="code" type="text" />
+          Code: <input name="code" type="text" onChange={(e) => setCode(e.target.value)} />
         </label>
         <br />
         <label>
-          Description: <input name="description" type="text" />
+          Description: <input name="description" type="text" onChange={(e) => setDescription(e.target.value)} />
         </label>
         <br />
         <label>
-          Price: <input name="price" type="number" />
+          Price: <input name="price" type="number" onChange={(e) => setPrice(e.target.value)} />
         </label>
         <br />
         <button type="submit">Enviar</button>
