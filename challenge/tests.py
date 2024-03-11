@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
 from rest_framework import status
+from rest_framework.authtoken.models import Token
 from rest_framework.test import APIClient
 
 from challenge.models import Article
@@ -17,6 +18,8 @@ class LoginTestCase(TestCase):
         self.username = 'testuser'
         self.password = 'testpassword'
         self.user = User.objects.create_user(username=self.username, password=self.password)
+        self.token = Token.objects.create(user=self.user)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
 
     def test_login(self):
         url = reverse('login')
@@ -40,6 +43,8 @@ class ArcticleTestCase(TestCase):
         self.password = 'testpassword'
         self.user = User.objects.create_user(username=self.username, password=self.password)
         self.client.login(username=self.username, password=self.password)
+        self.token = Token.objects.create(user=self.user)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
         self.article_data = {'code': '123', 'description': 'Test Article', 'price': 10.99}
         self.article = Article.objects.create(**self.article_data)
 
