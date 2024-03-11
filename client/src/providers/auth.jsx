@@ -11,6 +11,7 @@ let AuthContext = React.createContext();
 const backendAuthProvider = {
   isAuthenticated: false,
   signin({username, password}, callback) {
+    let status;
     fetch('http://127.0.0.1:8000/challenge/login/', {
       method: 'POST',
       headers: {
@@ -22,10 +23,12 @@ const backendAuthProvider = {
       }),
     })
     .then(response => {
-      if(response.status == 200){
+      status = response.status;
+      if(status == 200){
         return response.json();
       }else{
-        alert('Login incorrecto')
+        alert('Credenciales Incorrectas');
+        throw 'Credenciales Incorrectas';
       }
     })
     .then(response => {

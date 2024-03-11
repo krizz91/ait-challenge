@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import './styles.css';
 
 export function LoginPage({ useAuth, redirectTo }) {
   let navigate = useNavigate();
@@ -19,18 +20,21 @@ export function LoginPage({ useAuth, redirectTo }) {
   }
 
   return (
-    <div>
-      <p>You must log in to view the page at {redirectTo}</p>
+    <div class="login-container">
+      <h2>Login</h2>
 
       <form onSubmit={handleSubmit}>
-        <label>
-          Username: <input name="username" type="text" onChange={(e) => setUsername(e.target.value)} />
-        </label>{" "}
-        <label>
-          Password: <input name="password" type="password" onChange={(e) => setPassword(e.target.value)} />
-        </label>{" "}
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input name="username" type="text" onChange={(e) => setUsername(e.target.value)} required />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input name="password" type="password" onChange={(e) => setPassword(e.target.value)} required/>
+        </div>
         <button type="submit">Login</button>
       </form>
     </div>
   );
 }
+

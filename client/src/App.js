@@ -9,7 +9,7 @@ import {
   Outlet,
 } from "react-router-dom";
 
-import { LoginPage } from './pages/login';
+import { LoginPage } from './pages/login/login';
 import { ListPage } from './pages/list';
 import { EditPage } from './pages/edit';
 import { NewPage } from './pages/new';
@@ -67,7 +67,7 @@ function AuthStatus() {
   let navigate = useNavigate();
 
   if (!user) {
-    return <p>You are not logged in.</p>;
+    return;
   }
 
   return (
