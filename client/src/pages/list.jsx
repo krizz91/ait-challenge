@@ -44,22 +44,38 @@ export const ListPage = () => {
   return (
     <div>
       <h2>Listado de Elementos</h2>
-      <ul>
-        {list.map(art => (
-          <li key={art.id}>
-            {art.description}
-            <button onClick={() => navigate(`/edit/${art.id}`, {
-              replace: true,
-              state: {
-                object: art
-              }
-            })}>Editar</button>
-          </li>
-        ))}
-      </ul>
-      <button onClick={() => navigate('/new/', { replace: true })}>Nuevo</button>
-      <button onClick={() => navigate('/import/', { replace: true })}>Importar</button>
-      <button onClick={() => export_article()}>Exportar</button>
+      <table>
+        <thead>
+          <tr>
+          <th>Codigo</th>
+          <th>Descripcion</th>
+          <th>Precio</th>
+          <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {list.map(art => (
+            <tr>
+              <td>{art.code}</td>
+              <td>{art.description}</td>
+              <td>{art.price}</td>
+              <td>
+                <button onClick={() => navigate(`/edit/${art.id}`, {
+                  replace: true,
+                  state: {
+                    object: art
+                  }
+                })}>Editar</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <div>
+        <button onClick={() => navigate('/new/', { replace: true })}>Nuevo</button>
+        <button onClick={() => navigate('/import/', { replace: true })}>Importar</button>
+        <button onClick={() => export_article()}>Exportar</button>
+      </div>
     </div>
   );
 };

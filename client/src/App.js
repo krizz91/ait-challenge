@@ -15,6 +15,7 @@ import { EditPage } from './pages/edit';
 import { NewPage } from './pages/new';
 import { ImportPage } from './pages/import';
 import { AuthContext, AuthProvider } from "./providers/auth";
+import './App.css';
 
 export default function App() {
   return (
@@ -71,16 +72,17 @@ function AuthStatus() {
   }
 
   return (
-    <p>
-      Welcome {user}!{" "}
+    <div class="action-bar">
+      Welcome!{" "}
       <button
+        class="action-btn"
         onClick={() => {
           auth.signout(() => navigate("/"));
         }}
       >
         Sign out
       </button>
-    </p>
+    </div>
   );
 }
 
