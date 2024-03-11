@@ -1,21 +1,38 @@
-import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 
-const Login = ({ onLogin }) => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+export function LoginPage({ useAuth, redirectTo }) {
+  let navigate = useNavigate();
+  let auth = useAuth();
 
-  const handleLogin = () => {
-    onLogin();
-  };
+  let to = redirectTo || "/list";
+
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    let formData = new FormData(event.currentTarget);
+    let username = formData.get("username");
+
+    auth.signin(username, () => {
+      // Send them back to the page they tried to visit when they were
+      // redirected to the login page. Use { replace: true } so we don't create
+      // another entry in the history stack for the login page.  This means that
+      // when they get to the protected page and click the back button, they
+      // won't end up back on the login page, which is also really nice for the
+      // user experience.
+      navigate(to, { replace: true });
+    });
+  }
 
   return (
     <div>
-      <h2>Login</h2>
-      <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Usuario" />
-      <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Contraseña" />
-      <button onClick={handleLogin}>Iniciar Sesión</button>
+      <p>You must log in to view the page at {redirectTo}</p>
+
+      <form onSubmit={handleSubmit}>
+        <label>
+          Username: <input name="username" type="text" />
+        </label>{" "}
+        <button type="submit">Login</button>
+      </form>
     </div>
   );
-};
-
-export default Login;
+}

@@ -1,6 +1,8 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const List = () => {
+export const ListPage = () => {
+  let navigate = useNavigate();
 
   const elementos = [
     { id: 1, nombre: 'Elemento 1' },
@@ -15,15 +17,13 @@ const List = () => {
         {elementos.map(elemento => (
           <li key={elemento.id}>
             {elemento.nombre}
-            <button onClick={() => window.location.href = `/edit/${elemento.id}`}>Editar</button>
+            <button onClick={() => navigate(`/edit/${elemento.id}`, { replace: true })}>Editar</button>
           </li>
         ))}
       </ul>
-      <button onClick={() => window.location.href = '/new'}>Nuevo</button>
-      <button onClick={() => window.location.href = '/import'}>Importar</button>
-      <button onClick={() => window.location.href = '/export'}>Exportar</button>
+      <button onClick={() => navigate('/new/', { replace: true })}>Nuevo</button>
+      <button onClick={() => navigate('/import/', { replace: true })}>Importar</button>
+      <button onClick={() => navigate('/export/', { replace: true })}>Exportar</button>
     </div>
   );
 };
-
-export default List;

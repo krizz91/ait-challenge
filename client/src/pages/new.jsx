@@ -1,6 +1,6 @@
 import React from 'react';
 
-const New = () => {
+export const NewPage = () => {
 
   return (
     <div>
@@ -8,5 +8,3 @@ const New = () => {
     </div>
   );
 };
-
-export default New;

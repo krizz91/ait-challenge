@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Import = () => {
+export const ImportPage = () => {
 
   return (
     <div>
@@ -8,5 +8,3 @@ const Import = () => {
     </div>
   );
 };
-
-export default Import;
