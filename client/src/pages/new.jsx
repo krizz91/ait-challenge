@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 export const NewPage = () => {
+  let navigate = useNavigate();
+
   const token = useSelector(state => state.session.token);
 
   const [code, setCode] = useState('');
@@ -25,13 +28,11 @@ export const NewPage = () => {
     })
     .then(response => {
       if(response.status == 201){
-        return response.json();
+        navigate('/list', { replace: true })
       }else{
-        alert('Error')
+        alert('Error');
+        throw 'Error'
       }
-    })
-    .then(response => {
-      console.log(response)
     })
     .catch((error) => {
       console.log(error)
@@ -51,7 +52,7 @@ export const NewPage = () => {
         </label>
         <br />
         <label>
-          Price: <input name="price" type="number" onChange={(e) => setPrice(e.target.value)} />
+          Price: <input name="price" type="number" step="0.01" onChange={(e) => setPrice(e.target.value)} />
         </label>
         <br />
         <button type="submit">Enviar</button>

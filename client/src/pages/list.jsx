@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,21 +8,19 @@ export const ListPage = () => {
 
   const [ list, setList ] = useState([ ])
 
-  useEffect(() => {
-    fetch('http://127.0.0.1:8000/challenge/list/', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Token ' + token
-      },
-    })
-    .then(response => {
-      return response.json();
-    })
-    .then(response => {
-      setList(response.data);
-    })
-  }, [])
+  fetch('http://127.0.0.1:8000/challenge/list/', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Token ' + token
+    },
+  })
+  .then(response => {
+    return response.json();
+  })
+  .then(response => {
+    setList(response.data);
+  })
 
   const export_article = () => {
     fetch('http://127.0.0.1:8000/challenge/export/', {
@@ -47,10 +45,10 @@ export const ListPage = () => {
       <table>
         <thead>
           <tr>
-          <th>Codigo</th>
-          <th>Descripcion</th>
-          <th>Precio</th>
-          <th></th>
+            <th>Codigo</th>
+            <th>Descripcion</th>
+            <th>Precio</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>

@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export const EditPage = () => {
   const location = useLocation();
+  let navigate = useNavigate();
+
   const obj = location.state.object;
   const token = useSelector(state => state.session.token);
   const [code, setCode] = useState(obj.code);
@@ -29,13 +31,11 @@ export const EditPage = () => {
     })
     .then(response => {
       if(response.status == 200){
-        return response.json();
+        navigate('/list', { replace: true })
       }else{
         alert('Error')
+        throw 'Error'
       }
-    })
-    .then(response => {
-      console.log(response)
     })
     .catch((error) => {
       console.log(error)
@@ -57,7 +57,7 @@ export const EditPage = () => {
         </label>
         <br />
         <label>
-          Price: <input name="price" type="number" value={price} onChange={(e) => setPrice(e.target.value)} />
+          Price: <input name="price" type="number" step="0.01" value={price} onChange={(e) => setPrice(e.target.value)} />
         </label>
         <br />
         <button type="submit">Enviar</button>

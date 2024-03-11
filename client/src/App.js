@@ -73,7 +73,7 @@ function AuthStatus() {
 
   return (
     <div class="action-bar">
-      Welcome!{" "}
+      Bienvenido!{" "}
       <button
         class="action-btn"
         onClick={() => {
