@@ -1,8 +1,10 @@
 # Usa una imagen base de Python
 FROM python:3.10-slim
+
+ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED=1
 
-RUN apt-get update && apt-get install -y libmagic1
+RUN apt-get update && apt-get install -y python3-dev default-libmysqlclient-dev build-essential pkg-config libmagic1
 
 # Establece el directorio de trabajo en /app
 WORKDIR /
@@ -15,12 +17,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copia el código del backend al contenedor
 COPY . .
-
-RUN python3 manage.py migrate
-
-RUN python3 manage.py test
-
-RUN python3 populate.py
 
 # Exponer el puerto 8000
 EXPOSE 8000

@@ -1,6 +1,21 @@
 version: '3.8'
 
 services:
+  db:
+    container_name: db
+    image: mysql:8.0
+    restart: always
+    command: mysqld --default-authentication-plugin=mysql_native_password
+    volumes:
+      - mysql_data:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=challenge
+      - MYSQL_USER=myuser
+      - MYSQL_PASSWORD=mypassword
+      - MYSQL_ROOT_PASSWORD=rootpassword
+    ports:
+      - "3306:3306"  # Opcional: Mapea el puerto 3306 del contenedor al puerto 3306 del host
+
   backend:
     build:
       context: .  # Ruta al directorio del backend
@@ -8,7 +23,8 @@ services:
       - "8000:8000"  # Puerto del backend
     volumes:
       - ./backend:/app  # Montar el código del backend como volumen
-    command: python3 manage.py runserver 0.0.0.0:8000 # Comando para ejecutar el servidor Django
+    depends_on:
+      - db  # Indica que el contenedor de backend depende del contenedor de base de datos
 
   frontend:
     build:
@@ -18,3 +34,8 @@ services:
     volumes:
       - ./frontend:/app  # Montar el código del cliente web como volumen
     command: npm start  # Comando para ejecutar el cliente web
+    depends_on:
+      - backend
+
+volumes:
+  mysql_data:
