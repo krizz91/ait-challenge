@@ -1,39 +1,41 @@
-import * as React from "react";
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 
-import './App.css';
-import { authProvider } from "./providers/login";
-import { Login } from './pages/login';
+// Componentes
+import Login from './pages/login';
+import List from './pages/list';
+import Edit from './pages/edit';
+import New from './pages/new';
+import Import from './pages/import';
+import Export from './pages/export';
 
-function App() {
+const App = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   return (
-    <AuthProvider>
-      <h1>Auth Example</h1>
-    </AuthProvider>
+    <Router>
+      <Switch>
+        <Route exact path="/">
+          {isLoggedIn ? <Redirect to="/list" /> : <Login onLogin={() => setIsLoggedIn(true)} />}
+        </Route>
+        <Route path="/list">
+          {isLoggedIn ? <List /> : <Redirect to="/" />}
+        </Route>
+        <Route path="/edit/:id">
+          {isLoggedIn ? <Edit /> : <Redirect to="/" />}
+        </Route>
+        <Route path="/new">
+          {isLoggedIn ? <New /> : <Redirect to="/" />}
+        </Route>
+        <Route path="/import">
+          {isLoggedIn ? <Import /> : <Redirect to="/" />}
+        </Route>
+        <Route path="/export">
+          {isLoggedIn ? <Export /> : <Redirect to="/" />}
+        </Route>
+      </Switch>
+    </Router>
   );
-}
-
-let AuthContext = React.createContext();
-
-function AuthProvider({ children }) {
-  let [user, setUser] = React.useState();
-
-  let signin = (newUser, callback) => {
-    return authProvider.signin(() => {
-      setUser(newUser);
-      callback();
-    });
-  };
-
-  let signout = (callback) => {
-    return authProvider.signout(() => {
-      setUser();
-      callback();
-    });
-  };
-
-  let value = { user, signin, signout };
-
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
-}
+};
 
 export default App;

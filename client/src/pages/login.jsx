@@ -1,15 +1,11 @@
 import React, { useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
 
-export const Login = () => {
+const Login = ({ onLogin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-//   const navigate = useNavigate();
 
   const handleLogin = () => {
-    // Lógica de autenticación (p. ej., enviar credenciales al servidor)
-    // Si la autenticación es exitosa, redirige a la lista de elementos
-    // navigate('/list');
+    onLogin();
   };
 
   return (
@@ -21,3 +17,5 @@ export const Login = () => {
     </div>
   );
 };
+
+export default Login;
