@@ -27,5 +27,5 @@
 - [X] Front
 - [X] Dockerfile basico
 - [X] Populate
-- [ ] Migracion a MySQL (actualizar dockerfile)
+- [X] Migracion a MySQL (actualizar dockerfile)
 - [ ] Pulir documentacion
