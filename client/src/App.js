@@ -14,7 +14,6 @@ import { ListPage } from './pages/list';
 import { EditPage } from './pages/edit';
 import { NewPage } from './pages/new';
 import { ImportPage } from './pages/import';
-import { ExportPage } from './pages/export';
 import { AuthContext, AuthProvider } from "./providers/auth";
 
 export default function App() {
@@ -41,11 +40,6 @@ export default function App() {
           <Route path="/import" element={
             <RequireAuth>
               <ImportPage />
-            </RequireAuth>
-          } />
-          <Route path="/export" element={
-            <RequireAuth>
-              <ExportPage />
             </RequireAuth>
           } />
         </Route>
