@@ -10,19 +10,23 @@ let AuthContext = React.createContext();
  */
 const backendAuthProvider = {
   isAuthenticated: false,
-  signin(callback) {
+  signin({username, password}, callback) {
     fetch('http://127.0.0.1:8000/challenge/login/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        'username': 'admin',
-        'password': 'adminadmin'
+        'username': username,
+        'password': password
       }),
     })
     .then(response => {
-      return response.json();
+      if(response.status == 200){
+        return response.json();
+      }else{
+        alert('Login incorrecto')
+      }
     })
     .then(response => {
       backendAuthProvider.isAuthenticated = true;
@@ -39,12 +43,10 @@ const backendAuthProvider = {
 };
 
 function AuthProvider({ children }) {
-  // let [user, setUser] = React.useState();
   const dispatch = useDispatch();
-  // console.log('refresh', user, children);
 
   let signin = (newUser, callback) => {
-    return backendAuthProvider.signin((response) => {
+    return backendAuthProvider.signin(newUser, (response) => {
       dispatch(update_user_info(true));
       dispatch(set_token(response.token));
       callback();
