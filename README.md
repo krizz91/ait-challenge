@@ -24,8 +24,8 @@
 - [X] Manejo de errores
 - [X] Tests
 - [X] Manejo de Sesion ~(JWT)~ (Token)
-- [ ] Front
-- [ ] Dockerfile basico
+- [X] Front
+- [X] Dockerfile basico
 - [ ] Populate
 - [ ] Migracion a MySQL (actualizar dockerfile)
 - [ ] Pulir documentacion

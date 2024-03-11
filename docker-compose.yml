@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .  # Ruta al directorio del backend
+    ports:
+      - "8000:8000"  # Puerto del backend
+    volumes:
+      - ./backend:/app  # Montar el código del backend como volumen
+    command: python3 manage.py runserver 0.0.0.0:8000 # Comando para ejecutar el servidor Django
+
+  frontend:
+    build:
+      context: ./client  # Ruta al directorio del cliente web
+    ports:
+      - "3000:3000"  # Puerto del cliente web
+    volumes:
+      - ./frontend:/app  # Montar el código del cliente web como volumen
+    command: npm start  # Comando para ejecutar el cliente web
