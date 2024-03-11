@@ -27,7 +27,7 @@ export const NewPage = () => {
       }),
     })
     .then(response => {
-      if(response.status == 201){
+      if(response.status === 201){
         navigate('/list', { replace: true })
       }else{
         alert('Error');

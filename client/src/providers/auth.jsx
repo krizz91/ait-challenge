@@ -24,7 +24,7 @@ const backendAuthProvider = {
     })
     .then(response => {
       status = response.status;
-      if(status == 200){
+      if(status === 200){
         return response.json();
       }else{
         alert('Credenciales Incorrectas');

@@ -30,7 +30,7 @@ export const EditPage = () => {
       }),
     })
     .then(response => {
-      if(response.status == 200){
+      if(response.status === 200){
         navigate('/list', { replace: true })
       }else{
         alert('Error')
