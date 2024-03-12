@@ -38,7 +38,6 @@ Una vez que el contenedor esté en funcionamiento, puedes inicializar la base de
 
 ```bash
 docker-compose exec backend python manage.py migrate
-docker-compose exec backend python manage.py test
 docker-compose exec backend python populate.py
 ```
 

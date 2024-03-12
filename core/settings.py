@@ -97,7 +97,11 @@ DATABASES = {
         'PASSWORD': 'mypassword',
         'HOST': 'db',
         'PORT': '3306',
-    }
+        'TEST': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': ':memory:'
+        }
+    },
 }
 
 
